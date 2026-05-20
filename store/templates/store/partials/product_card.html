@@ -1,0 +1,37 @@
+{% load humanize persian_digits i18n%}
+<article class="product-card">
+    <a href="{% url 'store:golditem_detail' item.pk %}" class="product-card-image">
+        {% if item.image %}
+        <img src="{{ item.image.url }}" alt="{{ item.name }}" loading="lazy" width="320" height="240">
+        {% else %}
+        <div class="product-card-placeholder" aria-hidden="true">◆</div>
+        {% endif %}
+    </a>
+    <div class="product-card-body">
+        <h3 class="product-card-title">
+            <a href="{% url 'store:golditem_detail' item.pk %}">{{ item.name }}</a>
+        </h3>
+        <p class="product-card-meta">
+            {{ item.get_category_display }} · {{ item.weight_gram|to_persian_digits }} {% trans "گرم" %}
+        </p>
+        <p class="product-card-price">
+            {% if item.live_price %}
+            {{ item.live_price|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}
+            {% else %}
+            {{ item.final_price|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}
+            {% endif %}
+        </p>
+        <div class="product-card-actions">
+            <a href="{% url 'store:golditem_detail' item.pk %}" class="btn btn-secondary btn-sm">{% trans "جزئیات" %}</a>
+            {% if user.is_authenticated and item.stock > 0 %}
+            <form action="{% url 'store:cart_add' item.pk %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="btn btn-primary btn-sm">{% trans "افزودن به سبد" %}</button>
+            </form>
+            {% elif not user.is_authenticated %}
+            <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary btn-sm">{% trans "ورود برای خرید" %}</a>
+            {% endif %}
+        </div>
+    </div>
+</article>

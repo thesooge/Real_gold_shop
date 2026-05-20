@@ -1,0 +1,12 @@
+{% load i18n %}
+{% if order.status == "PAID" %}
+<span class="badge badge-paid">{{ order.get_status_display }}</span>
+{% elif order.status == "SHIPPED" %}
+<span class="badge badge-shipped">{{ order.get_status_display }}</span>
+{% elif order.status == "PAYMENT_FAILED" %}
+<span class="badge badge-failed">{{ order.get_status_display }}</span>
+{% elif order.status == "CANCELLED" %}
+<span class="badge badge-cancelled">{{ order.get_status_display }}</span>
+{% else %}
+<span class="badge badge-new">{{ order.get_status_display }}</span>
+{% endif %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "پروفایل من" %}{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h1>{% trans "پروفایل من" %}</h1>
+</div>
+
+<div class="checkout-layout">
+    <section class="panel">
+        <h2>{% trans "اطلاعات حساب" %}</h2>
+        <p class="text-muted mb-2">
+            {% trans "نام کاربری:" %} <strong>{{ user.username }}</strong>
+            · {% trans "عضو از" %} {{ user.date_joined|date:"Y/m/d" }}
+        </p>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            <h3 class="mt-2">{% trans "مشخصات شخصی" %}</h3>
+            {% for field in user_form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <div class="form-error">{{ field.errors|striptags }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <h3 class="mt-2">{% trans "اطلاعات تماس" %}</h3>
+            {% for field in profile_form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <div class="form-error">{{ field.errors|striptags }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary mt-2">{% trans "ذخیره تغییرات" %}</button>
+        </form>
+    </section>
+
+    <aside class="panel checkout-summary">
+        <h2>{% trans "خلاصه فعالیت" %}</h2>
+        <ul class="spec-list">
+            <li><span>{% trans "کل سفارش‌ها" %}</span><strong>{{ order_count }}</strong></li>
+            <li><span>{% trans "سفارش‌های پرداخت‌شده" %}</span><strong>{{ paid_count }}</strong></li>
+            <li><span>{% trans "سبد خرید" %}</span><strong>{{ cart_item_count }} {% trans "قلم" %}</strong></li>
+        </ul>
+
+        <div class="mt-2" style="display:flex;flex-direction:column;gap:0.5rem;">
+            <a href="{% url 'store:my_orders' %}" class="btn btn-secondary btn-block">{% trans "سفارش‌های من" %}</a>
+            <a href="{% url 'store:cart_detail' %}" class="btn btn-secondary btn-block">{% trans "سبد خرید" %}</a>
+            <a href="{% url 'store:golditem_list' %}" class="btn btn-primary btn-block">{% trans "ادامه خرید" %}</a>
+        </div>
+
+        {% if recent_orders %}
+        <h3 class="mt-2">{% trans "آخرین سفارش‌ها" %}</h3>
+        <ul class="summary-list">
+            {% for order in recent_orders %}
+            <li>
+                <a href="{% url 'store:order_detail' order.pk %}">#{{ order.id }}</a>
+                <span>
+                    {% if order.total_amount %}
+                    {{ order.total_amount|floatformat:0|intcomma }}
+                    {% else %}
+                    {{ order.total_price|floatformat:0|intcomma }}
+                    {% endif %}
+                    {% trans "تومان" %}
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </aside>
+</div>
+{% endblock %}

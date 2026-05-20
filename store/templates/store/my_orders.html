@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load humanize persian_digits %}
+
+{% block title %}{% trans "سفارش‌های من" %}{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h1>{% trans "سفارش‌های من" %}</h1>
+    <a href="{% url 'store:golditem_list' %}" class="btn btn-secondary btn-sm">{% trans "بازگشت به فروشگاه" %}</a>
+</div>
+
+{% if orders %}
+<div class="orders-list">
+    {% for order in orders %}
+    <article class="order-card">
+        <div>
+            <h3 style="margin:0 0 0.35rem;">
+                <a href="{% url 'store:order_detail' order.pk %}">{% trans "سفارش #" %}{{ order.id }}</a>
+            </h3>
+            <p class="order-card-meta">
+                {{ order.created_at|date:"Y/m/d — H:i" }}
+                {% with count=order.orderitems.count %}
+                {% if count %} · {{ count|to_persian_digits }} {% trans "قلم" %}{% endif %}
+                {% endwith %}
+            </p>
+        </div>
+        <div style="text-align:left;">
+            <p style="margin:0 0 0.5rem;font-weight:700;">
+                {% if order.total_amount %}
+                {{ order.total_amount|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}
+                {% else %}
+                {{ order.total_price|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}
+                {% endif %}
+            </p>
+            {% include "partials/status_badge.html" with order=order %}
+        </div>
+        <a href="{% url 'store:order_detail' order.pk %}" class="btn btn-secondary btn-sm">{% trans "جزئیات" %}</a>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state panel">
+    <p>{% trans "هنوز سفارشی ثبت نکرده‌اید." %}</p>
+    <a href="{% url 'store:golditem_list' %}" class="btn btn-primary">{% trans "شروع خرید" %}</a>
+</div>
+{% endif %}
+{% endblock %}

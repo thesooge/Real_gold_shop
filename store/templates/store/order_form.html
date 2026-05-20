@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "ثبت سفارش" %} — {{ item.name }}{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="{% trans "مسیر" %}">
+    <a href="{% url 'store:golditem_list' %}">{% trans "فروشگاه" %}</a>
+    /
+    <a href="{% url 'store:golditem_detail' item.pk %}">{{ item.name }}</a>
+    /
+    <span>{% trans "ثبت سفارش" %}</span>
+</nav>
+
+<div class="auth-card">
+    <div class="panel">
+        <h1>{% trans "ثبت سفارش" %}</h1>
+        <p class="text-muted">{% trans "برای:" %} <strong>{{ item.name }}</strong></p>
+
+        {% if error %}
+        <div class="alert alert-error" role="alert">{{ error }}</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <div class="form-error">{{ field.errors|striptags }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-block">{% trans "ثبت سفارش" %}</button>
+        </form>
+
+        <p class="auth-links mt-2">
+            <a href="{% url 'store:golditem_detail' item.pk %}">{% trans "بازگشت به صفحه کالا" %}</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

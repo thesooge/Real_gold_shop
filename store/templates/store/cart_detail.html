@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load humanize persian_digits %}
+
+{% block title %}{% trans "سبد خرید" %}{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h1>{% trans "سبد خرید" %}</h1>
+</div>
+
+{% if rows %}
+<div class="table-wrap">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>{% trans "تصویر" %}</th>
+                <th>{% trans "محصول" %}</th>
+                <th>{% trans "تعداد" %}</th>
+                <th>{% trans "قیمت واحد" %}</th>
+                <th>{% trans "جمع" %}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                <td data-label="{% trans "تصویر" %}">
+                    {% if row.item.image %}
+                    <img src="{{ row.item.image.url }}" alt="" class="thumb" width="56" height="56">
+                    {% else %}
+                    <span class="product-card-placeholder" style="width:56px;height:56px;font-size:1.25rem;border-radius:6px;">◆</span>
+                    {% endif %}
+                </td>
+                <td data-label="{% trans "محصول" %}">
+                    <a href="{% url 'store:golditem_detail' row.item.pk %}"><strong>{{ row.item.name }}</strong></a>
+                    <br><span class="text-muted">{{ row.item.weight_gram|to_persian_digits }} {% trans "گرم" %}</span>
+                </td>
+                <td data-label="{% trans "تعداد" %}">{{ row.quantity }}</td>
+                <td data-label="{% trans "قیمت واحد" %}">{{ row.item.final_price|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}</td>
+                <td data-label="{% trans "جمع" %}">{{ row.line_total|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}</td>
+                <td data-label="{% trans "حذف" %}">
+                    <form method="post" action="{% url 'store:remove_from_cart' row.id %}" data-confirm-delete>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm" aria-label="{% trans "حذف" %} {{ row.item.name }}">🗑 {% trans "حذف" %}</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="cart-summary">
+    <div class="cart-summary-row cart-summary-total">
+        <span>{% trans "جمع کل" %}</span>
+        <span>{{ total|floatformat:0|intcomma }} {% trans "تومان" %}</span>
+    </div>
+</div>
+
+<div class="cart-actions">
+    <a href="{% url 'store:golditem_list' %}" class="btn btn-secondary">{% trans "ادامه خرید" %}</a>
+    <a href="{% url 'store:checkout' %}" class="btn btn-primary">{% trans "تسویه و ثبت سفارش" %}</a>
+</div>
+
+{% else %}
+<div class="empty-state panel">
+    <p>{% trans "سبد خرید شما خالی است." %}</p>
+    <a href="{% url 'store:golditem_list' %}" class="btn btn-primary">{% trans "مشاهده محصولات" %}</a>
+</div>
+{% endif %}
+{% endblock %}

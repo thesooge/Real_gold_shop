@@ -1,0 +1,100 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% trans 'Online second-hand gold shop with transparent pricing' %}">
+    <title>{% block title %}{% trans "Gold Shop" %}{% endblock %} | {% trans "Galerie Bahere Gold" %}</title>
+    <link rel="icon" href="{% static 'img/logo3.PNG' %}" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="{% url 'store:home' %}" class="brand">
+                <img src="{% static 'img/logo3.PNG' %}" alt="{% trans 'Bahere Gold' %}">
+                <span>{% trans "Gallery Bahere Gold" %}</span>
+            </a>
+
+            <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="{% trans 'Menu' %}">
+                ☰
+            </button>
+
+            <nav class="site-nav" data-nav-menu aria-label="{% trans 'Main menu' %}">
+                <a href="{% url 'store:home' %}" class="{% if request.resolver_match.url_name == 'home' %}is-active{% endif %}">{% trans "Home" %}</a>
+                <a href="{% url 'store:golditem_list' %}" class="{% if request.resolver_match.url_name == 'golditem_list' %}is-active{% endif %}">{% trans "Shop" %}</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}is-active{% endif %}">{% trans "Profile" %}</a>
+                <a href="{% url 'store:my_orders' %}" class="{% if request.resolver_match.url_name == 'my_orders' or request.resolver_match.url_name == 'order_detail' %}is-active{% endif %}">{% trans "My orders" %}</a>
+                {% endif %}
+            </nav>
+
+            <div class="nav-actions">
+                
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="user-greeting">{{ user.get_full_name|default:user.username }}</a>
+                <a href="{% url 'store:cart_detail' %}" class="cart-link" aria-label="{% trans 'Shopping cart' %}">
+                    🛒 {% trans "Cart" %}
+                    {% if cart_item_count %}
+                    <span class="cart-badge">{{ cart_item_count }}</span>
+                    {% endif %}
+                </a>
+                <form action="{% url 'logout' %}" method="post" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary btn-sm">{% trans "Log out" %}</button>
+                </form>
+                {% else %}
+                <a href="{% url 'login' %}" class="btn btn-secondary btn-sm">{% trans "Log in" %}</a>
+                <a href="{% url 'signup' %}" class="btn btn-primary btn-sm">{% trans "Sign up" %}</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main class="site-main">
+        <div class="container">
+            {% include "partials/messages.html" %}
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>{% trans "About us" %}</h4>
+                    <p class="text-muted" style="margin:0;font-size:0.9rem;">{% trans "Specialized second-hand gold shop with live gold rate pricing." %}</p>
+                </div>
+                <div>
+                    <h4>{% trans "Quick links" %}</h4>
+                    <a href="{% url 'store:home' %}">{% trans "Home" %}</a>
+                    <a href="{% url 'store:golditem_list' %}">{% trans "Browse gold" %}</a>
+                    <a href="{% url 'store:cart_detail' %}">{% trans "Cart" %}</a>
+                </div>
+                <div>
+                    <h4>{% trans "Support" %}</h4>
+                    <a href="#contact">{% trans "Contact us" %}</a>
+                    <a href="#terms">{% trans "Terms" %}</a>
+                    <a href="#privacy">{% trans "Privacy" %}</a>
+                </div>
+                <div>
+                    <h4>{% trans "Social" %}</h4>
+                    <a href="#" rel="noopener">{% trans "Instagram" %}</a>
+                    <a href="#" rel="noopener">{% trans "Telegram" %}</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © {% now "Y" %} {% trans "Bahere Gold Shop — All rights reserved." %}
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}" defer></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

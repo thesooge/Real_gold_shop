@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load humanize store_extras persian_digits i18n %}
+
+{% block title %}{% trans "سفارش #" %}{{ order.id }}{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="{% trans "مسیر" %}">
+    <a href="{% url 'store:my_orders' %}">{% trans "سفارش‌های من" %}</a>
+    /
+    <span>{% trans "سفارش #" %}{{ order.id }}</span>
+</nav>
+
+<div class="section-header">
+    <h1>{% trans "سفارش #" %}{{ order.id }}</h1>
+    {% include "partials/status_badge.html" with order=order %}
+</div>
+
+<div class="checkout-layout">
+    <section class="panel">
+        <h2>{% trans "اقلام سفارش" %}</h2>
+        {% if order.orderitems.all %}
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{% trans "محصول" %}</th>
+                        <th>{% trans "تعداد" %}</th>
+                        <th>{% trans "قیمت واحد" %}</th>
+                        <th>{% trans "جمع" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for line in order.orderitems.all %}
+                    <tr>
+                        <td data-label="{% trans "محصول" %}">{{ line.item.name }}</td>
+                        <td data-label="{% trans "تعداد" %}">{{ line.quantity|to_persian_digits }}</td>
+                        <td data-label="{% trans "قیمت واحد" %}">{{ line.price_at_purchase|floatformat:0|intcomma }} {% trans "تومان" %}</td>
+                        <td data-label="{% trans "جمع" %}">{{ line.price_at_purchase|mul:line.quantity|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted">
+            {% trans "جزئیات اقلام این سفارش در سیستم ثبت نشده است." %}
+            {% if order.coupon %}<br>{% trans "کد تخفیف:" %} {{ order.coupon }}{% endif %}
+        </p>
+        {% endif %}
+
+        <h3 class="mt-2">{% trans "اطلاعات ارسال" %}</h3>
+        <ul class="spec-list">
+            <li><span>{% trans "نام" %}</span><strong>{{ order.full_name }}</strong></li>
+            <li><span>{% trans "تلفن" %}</span><strong>{{ order.phone }}</strong></li>
+            <li><span>{% trans "آدرس" %}</span><strong>{{ order.address_line }}</strong></li>
+        </ul>
+    </section>
+
+    <aside class="panel checkout-summary">
+        <h2>{% trans "خلاصه مالی" %}</h2>
+        <div class="summary-totals">
+            {% if order.discount_amount and order.discount_amount > 0 %}
+            <div class="row">
+                <span>{% trans "تخفیف" %}</span>
+                <span>− {{ order.discount_amount|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}</span>
+            </div>
+            {% endif %}
+            {% if order.shipping_cost is not None %}
+            <div class="row">
+                <span>{% trans "هزینه ارسال" %}</span>
+                <span>
+                    {% if order.shipping_cost == 0 %}
+                    {% trans "رایگان" %}
+                    {% else %}
+                    {{ order.shipping_cost|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}
+                    {% endif %}
+                </span>
+            </div>
+            {% endif %}
+            <div class="row total">
+                <span>{% trans "مبلغ نهایی" %}</span>
+                <span>
+                    {% if order.total_amount %}
+                    {{ order.total_amount|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}
+                    {% else %}
+                    {{ order.total_price|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+        <p class="text-muted mt-1" style="font-size:0.9rem;">
+            {% trans "تاریخ ثبت:" %} {{ order.created_at|date:"Y/m/d — H:i" }}
+        </p>
+        <a href="{% url 'store:my_orders' %}" class="btn btn-secondary btn-block mt-2">{% trans "بازگشت به لیست" %}</a>
+    </aside>
+</div>
+{% endblock %}

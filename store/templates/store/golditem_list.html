@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "فروشگاه" %}{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h1>{% trans "فروشگاه طلا" %}</h1>
+</div>
+
+{% if latest_gold_price %}
+<div class="price-banner">
+    <strong>{% trans "قیمت لحظه‌ای هر گرم طلا:" %}</strong>
+    {{ latest_gold_price.price_per_gram|floatformat:0|intcomma }} {% trans "تومان" %}
+    <br>
+    <span class="text-muted">{% trans "قیمت محصولات بر اساس آخرین به‌روزرسانی نرخ طلا + درصد سود فروشگاه محاسبه می‌شود." %}</span>
+</div>
+{% endif %}
+
+<form method="get" class="filter-bar" aria-label="{% trans "فیلتر قیمت" %}">
+    <div class="filter-group">
+        <label for="min_price">{% trans "حداقل قیمت (تومان)" %}</label>
+        <input type="number" id="min_price" name="min_price" value="{{ min_price }}" min="0" class="form-input" placeholder="{% trans "از" %}">
+    </div>
+    <div class="filter-group">
+        <label for="max_price">{% trans "حداکثر قیمت (تومان)" %}</label>
+        <input type="number" id="max_price" name="max_price" value="{{ max_price }}" min="0" class="form-input" placeholder="{% trans "تا" %}">
+    </div>
+    <button type="submit" class="btn btn-primary">{% trans "اعمال فیلتر" %}</button>
+    {% if min_price or max_price %}
+    <a href="{% url 'store:golditem_list' %}" class="btn btn-secondary">{% trans "حذف فیلتر" %}</a>
+    {% endif %}
+</form>
+
+{% if items %}
+<div class="product-grid">
+    {% for item in items %}
+        {% include "store/partials/product_card.html" with item=item %}
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state panel">
+    <p>{% trans "کالایی با این مشخصات یافت نشد." %}</p>
+    <a href="{% url 'store:golditem_list' %}" class="btn btn-secondary">{% trans "نمایش همه کالاها" %}</a>
+</div>
+{% endif %}
+{% endblock %}

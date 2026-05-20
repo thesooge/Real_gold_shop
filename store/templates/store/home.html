@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load humanize persian_digits %}
+
+{% block title %}{% trans "خانه" %}{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>{% trans "طلای دست‌دوم با قیمت منصفانه و شفاف" %}</h1>
+        <p>
+            {% trans "خرید مطمئن سکه و طلای دست‌دوم با قیمت‌گذاری بر اساس نرخ لحظه‌ای طلا." %}
+            {% trans "سفارش آنلاین، پرداخت امن و ارسال سریع." %}
+        </p>
+        <div class="hero-actions">
+            <a href="{% url 'store:golditem_list' %}" class="btn btn-primary">{% trans "مشاهده طلاها" %}</a>
+            <a href="{% url 'store:cart_detail' %}" class="btn btn-secondary">{% trans "شروع خرید" %}</a>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <div class="feature-icon">⚖️</div>
+        <h3>{% trans "قیمت منصفانه" %}</h3>
+        <p>{% trans "محاسبه شفاف بر اساس وزن و نرخ روز طلا" %}</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>{% trans "قیمت پویا" %}</h3>
+        <p>{% trans "به‌روزرسانی منظم قیمت‌ها از منبع معتبر" %}</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>{% trans "سفارش امن" %}</h3>
+        <p>{% trans "پرداخت آنلاین و پیگیری وضعیت سفارش" %}</p>
+    </div>
+</section>
+
+{% if latest_gold_price %}
+<div class="price-banner">
+    <strong>{% trans "نرخ لحظه‌ای:" %}</strong>
+    {% trans "هر گرم طلا" %} {{ latest_gold_price.price_per_gram|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}
+    <span class="text-muted">— {% trans "آخرین به‌روزرسانی" %} {{ latest_gold_price.created_at|date:"Y/m/d H:i" }}</span>
+</div>
+{% endif %}
+
+<div class="section-header">
+    <h2>{% trans "جدیدترین محصولات" %}</h2>
+    <a href="{% url 'store:golditem_list' %}" class="btn btn-secondary btn-sm">{% trans "مشاهده همه" %}</a>
+</div>
+
+{% if featured_items %}
+<div class="product-grid">
+    {% for item in featured_items %}
+        {% include "store/partials/product_card.html" with item=item %}
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state panel">
+    <p>{% trans "در حال حاضر محصولی برای نمایش وجود ندارد." %}</p>
+    <a href="{% url 'store:golditem_list' %}" class="btn btn-primary">{% trans "رفتن به فروشگاه" %}</a>
+</div>
+{% endif %}
+{% endblock %}

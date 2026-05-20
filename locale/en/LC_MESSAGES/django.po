@@ -1,0 +1,154 @@
+# English translations for Bahere Gold Shop
+msgid ""
+msgstr ""
+"Project-Id-Version: prj_15_real_goldshop\n"
+"Language: en\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Persian"
+msgstr "Persian"
+
+msgid "English"
+msgstr "English"
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Gold Shop"
+msgstr "Gold Shop"
+
+msgid "Bahere Gold"
+msgstr "Bahere Gold"
+
+msgid "Online second-hand gold shop with transparent pricing"
+msgstr "Online second-hand gold shop with transparent pricing"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Main menu"
+msgstr "Main menu"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Shop"
+msgstr "Shop"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "My orders"
+msgstr "My orders"
+
+msgid "Shopping cart"
+msgstr "Shopping cart"
+
+msgid "Cart"
+msgstr "Cart"
+
+msgid "Log out"
+msgstr "Log out"
+
+msgid "Log in"
+msgstr "Log in"
+
+msgid "Sign up"
+msgstr "Sign up"
+
+msgid "About us"
+msgstr "About us"
+
+msgid "Specialized second-hand gold shop with live gold rate pricing."
+msgstr "Specialized second-hand gold shop with live gold rate pricing."
+
+msgid "Quick links"
+msgstr "Quick links"
+
+msgid "Browse gold"
+msgstr "Browse gold"
+
+msgid "Support"
+msgstr "Support"
+
+msgid "Contact us"
+msgstr "Contact us"
+
+msgid "Terms"
+msgstr "Terms"
+
+msgid "Privacy"
+msgstr "Privacy"
+
+msgid "Social"
+msgstr "Social"
+
+msgid "Instagram"
+msgstr "Instagram"
+
+msgid "Telegram"
+msgstr "Telegram"
+
+msgid "Bahere Gold Shop — All rights reserved."
+msgstr "Bahere Gold Shop — All rights reserved."
+
+msgid "Coin"
+msgstr "Coin"
+
+msgid "Second-hand gold"
+msgstr "Second-hand gold"
+
+msgid "New"
+msgstr "New"
+
+msgid "Paid"
+msgstr "Paid"
+
+msgid "Payment failed"
+msgstr "Payment failed"
+
+msgid "Cancelled"
+msgstr "Cancelled"
+
+msgid "Shipped"
+msgstr "Shipped"
+
+msgid "Pending payment"
+msgstr "Pending payment"
+
+msgid "Percentage"
+msgstr "Percentage"
+
+msgid "Fixed amount"
+msgstr "Fixed amount"
+
+msgid "Flat shipping fee (Toman)"
+msgstr "Flat shipping fee (Toman)"
+
+msgid "Free shipping for orders at or above this amount (Toman)"
+msgstr "Free shipping for orders at or above this amount (Toman)"
+
+msgid "Shipping settings"
+msgstr "Shipping settings"
+
+msgid "Coupon code"
+msgstr "Coupon code"
+
+msgid "Enter coupon code"
+msgstr "Enter coupon code"
+
+msgid "First name"
+msgstr "First name"
+
+msgid "Last name"
+msgstr "Last name"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Phone number"
+msgstr "Phone number"
+
+msgid "Default address"
+msgstr "Default address"

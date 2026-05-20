@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "خروج" %}{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <div class="panel text-center">
+        <h1>{% trans "شما از حساب خارج شدید" %}</h1>
+        <p class="text-muted">{% trans "برای ادامه خرید دوباره وارد شوید." %}</p>
+        <div class="mt-2" style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;">
+            <a href="{% url 'login' %}" class="btn btn-primary">{% trans "ورود دوباره" %}</a>
+            <a href="{% url 'store:home' %}" class="btn btn-secondary">{% trans "بازگشت به فروشگاه" %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

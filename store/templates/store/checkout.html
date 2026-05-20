@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load humanize store_extras persian_digits %}
+
+{% block title %}{% trans "تسویه حساب" %}{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h1>{% trans "تسویه حساب" %}</h1>
+</div>
+
+{% if error %}
+<div class="alert alert-error" role="alert">{{ error }}</div>
+{% endif %}
+
+{% if applied_coupon and not coupon_message %}
+<div class="alert alert-success" role="status">
+    {% blocktrans %}کد تخفیف «{{ applied_coupon.code }}» اعمال شد.{% endblocktrans %}
+</div>
+{% endif %}
+
+{% if coupon_message %}
+<div class="alert {% if applied_coupon %}alert-success{% else %}alert-error{% endif %}" role="status">
+    {{ coupon_message }}
+</div>
+{% endif %}
+
+<form method="post" action="." class="checkout-layout">
+    {% csrf_token %}
+
+    <div>
+        <section class="panel mb-2">
+            <h2>{% trans "مشخصات مشتری" %}</h2>
+            <div class="form-group">
+                <label for="full_name">{% trans "نام و نام خانوادگی" %}</label>
+                <input type="text" name="full_name" id="full_name" class="form-input" required autocomplete="name">
+            </div>
+            <div class="form-group">
+                <label for="phone">{% trans "شماره تماس" %}</label>
+                <input type="tel" name="phone" id="phone" class="form-input" required autocomplete="tel">
+            </div>
+            <div class="form-group">
+                <label for="address_line">{% trans "آدرس کامل" %}</label>
+                <textarea name="address_line" id="address_line" rows="3" class="form-input" required autocomplete="street-address"></textarea>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>{% trans "کد تخفیف" %}</h2>
+            <div class="coupon-row">
+                {% if coupon_form %}
+                    {{ coupon_form.code }}
+                {% else %}
+                    <input type="text" name="code" class="form-input" placeholder="{% trans "کد تخفیف" %}">
+                {% endif %}
+                <button type="submit" name="action" value="apply_coupon" class="btn btn-secondary">
+                    {% trans "اعمال کد" %}
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <aside class="checkout-summary panel">
+        <h2>{% trans "خلاصه سفارش" %}</h2>
+        <ul class="summary-list">
+            {% for ci in cart_items %}
+            <li>
+                <span>{{ ci.item.name }} × {{ ci.quantity }}</span>
+                <span>{{ ci.item.final_price|mul:ci.quantity|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}</span>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div class="summary-totals">
+            <div class="row">
+                <span>{% trans "جمع کالاها" %}</span>
+                <span>{{ total|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}</span>
+            </div>
+            {% if discount and discount > 0 %}
+            <div class="row">
+                <span>{% trans "تخفیف" %}</span>
+                <span>− {{ discount|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}</span>
+            </div>
+            <div class="row">
+                <span>{% trans "جمع پس از تخفیف" %}</span>
+                <span>{{ items_total|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}</span>
+            </div>
+            {% endif %}
+            <div class="row">
+                <span>{% trans "هزینه ارسال" %}</span>
+                <span>
+                    {% if shipping_cost == 0 %}
+                    <strong>{% trans "رایگان" %}</strong>
+                    {% else %}
+                    {{ shipping_cost|floatformat:0|intcomma }} {% trans "تومان" %}
+                    {% endif %}
+                </span>
+            </div>
+            <div class="row total">
+                <span>{% trans "مبلغ قابل پرداخت" %}</span>
+                <span>{{ payable|floatformat:0|intcomma }} {% trans "تومان" %}</span>
+            </div>
+        </div>
+
+        <button type="submit" name="action" value="confirm_order" class="btn btn-primary btn-block mt-2">
+            {% trans "پرداخت و ثبت نهایی سفارش" %}
+        </button>
+        <p class="text-muted text-center mt-1" style="font-size:0.85rem;">
+            {% trans "پس از ثبت، به درگاه امن زرین‌پال هدایت می‌شوید." %}
+        </p>
+    </aside>
+</form>
+{% endblock %}

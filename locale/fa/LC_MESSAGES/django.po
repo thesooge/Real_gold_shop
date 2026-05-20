@@ -1,0 +1,272 @@
+# Persian translations for Bahere Gold Shop
+msgid ""
+msgstr ""
+"Project-Id-Version: prj_15_real_goldshop\n"
+"Language: fa\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Persian"
+msgstr "فارسی"
+
+msgid "English"
+msgstr "انگلیسی"
+
+msgid "Language"
+msgstr "زبان"
+
+msgid "Gold Shop"
+msgstr "فروشگاه طلا"
+
+msgid "Galerie Bahere Gold"
+msgstr "گالری طلای باهر" 
+
+msgid "Online second-hand gold shop with transparent pricing"
+msgstr "فروشگاه آنلاین طلای دست‌دوم — قیمت‌گذاری شفاف و به‌روز"
+
+msgid "Menu"
+msgstr "منو"
+
+msgid "Main menu"
+msgstr "منوی اصلی"
+
+msgid "Home"
+msgstr "خانه"
+
+msgid "Shop"
+msgstr "فروشگاه"
+
+msgid "Profile"
+msgstr "پروفایل"
+
+msgid "My orders"
+msgstr "سفارش‌های من"
+
+msgid "Shopping cart"
+msgstr "سبد خرید"
+
+msgid "Cart"
+msgstr "سبد"
+
+msgid "Log out"
+msgstr "خروج"
+
+msgid "Log in"
+msgstr "ورود"
+
+msgid "Sign up"
+msgstr "ثبت‌نام"
+
+msgid "About us"
+msgstr "درباره ما"
+
+msgid "Specialized second-hand gold shop with live gold rate pricing."
+msgstr "فروشگاه تخصصی طلای دست‌دوم با قیمت‌گذاری بر اساس نرخ لحظه‌ای طلا."
+
+msgid "Quick links"
+msgstr "دسترسی سریع"
+
+msgid "Browse gold"
+msgstr "مشاهده طلاها"
+
+msgid "Support"
+msgstr "پشتیبانی"
+
+msgid "Contact us"
+msgstr "تماس با ما"
+
+msgid "Terms"
+msgstr "قوانین و مقررات"
+
+msgid "Privacy"
+msgstr "حریم خصوصی"
+
+msgid "Social"
+msgstr "شبکه‌های اجتماعی"
+
+msgid "Instagram"
+msgstr "اینستاگرام"
+
+msgid "Telegram"
+msgstr "تلگرام"
+
+msgid "Bahere Gold Shop — All rights reserved."
+msgstr "فروشگاه طلای باهر — تمامی حقوق محفوظ است."
+
+msgid "Coin"
+msgstr "سکه"
+
+msgid "Second-hand gold"
+msgstr "طلای دست‌دوم"
+
+msgid "New"
+msgstr "جدید"
+
+msgid "Paid"
+msgstr "پرداخت‌شده"
+
+msgid "Payment failed"
+msgstr "پرداخت ناموفق"
+
+msgid "Cancelled"
+msgstr "لغو‌شده"
+
+msgid "Shipped"
+msgstr "ارسال‌شده"
+
+msgid "Pending payment"
+msgstr "در انتظار پرداخت"
+
+msgid "Percentage"
+msgstr "درصدی"
+
+msgid "Fixed amount"
+msgstr "مبلغ ثابت"
+
+msgid "Flat shipping fee (Toman)"
+msgstr "هزینه ثابت ارسال (تومان)"
+
+msgid "Free shipping for orders at or above this amount (Toman)"
+msgstr "ارسال رایگان برای سفارش‌های با مبلغ بالاتر یا مساوی این عدد (تومان)"
+
+msgid "Shipping settings"
+msgstr "تنظیمات ارسال"
+
+msgid "Coupon code"
+msgstr "کد تخفیف"
+
+msgid "Enter coupon code"
+msgstr "کد تخفیف را وارد کنید"
+
+msgid "First name"
+msgstr "نام"
+
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+msgid "Email"
+msgstr "ایمیل"
+
+msgid "Phone number"
+msgstr "شماره تماس"
+
+msgid "Default address"
+msgstr "آدرس پیش‌فرض"
+
+# Added from templates: users and store
+msgid "ورود"
+msgstr "ورود"
+
+msgid "ورود به حساب"
+msgstr "ورود به حساب"
+
+msgid "نام کاربری یا رمز عبور نادرست است."
+msgstr "نام کاربری یا رمز عبور نادرست است."
+
+msgid "حساب ندارید؟"
+msgstr "حساب ندارید؟"
+
+msgid "ایجاد حساب کاربری"
+msgstr "ایجاد حساب کاربری"
+
+msgid "ایجاد حساب"
+msgstr "ایجاد حساب"
+
+msgid "قبلاً ثبت‌نام کرده‌اید؟"
+msgstr "قبلاً ثبت‌نام کرده‌اید؟"
+
+msgid "خروج"
+msgstr "خروج"
+
+msgid "شما از حساب خارج شدید"
+msgstr "شما از حساب خارج شدید"
+
+msgid "برای ادامه خرید دوباره وارد شوید."
+msgstr "برای ادامه خرید دوباره وارد شوید."
+
+msgid "ورود دوباره"
+msgstr "ورود دوباره"
+
+msgid "بازگشت به فروشگاه"
+msgstr "بازگشت به فروشگاه"
+
+msgid "پروفایل من"
+msgstr "پروفایل من"
+
+msgid "اطلاعات حساب"
+msgstr "اطلاعات حساب"
+
+msgid "مشخصات شخصی"
+msgstr "مشخصات شخصی"
+
+msgid "اطلاعات تماس"
+msgstr "اطلاعات تماس"
+
+msgid "ذخیره تغییرات"
+msgstr "ذخیره تغییرات"
+
+msgid "خلاصه فعالیت"
+msgstr "خلاصه فعالیت"
+
+msgid "کل سفارش‌ها"
+msgstr "کل سفارش‌ها"
+
+msgid "سفارش‌های پرداخت‌شده"
+msgstr "سفارش‌های پرداخت‌شده"
+
+msgid "قلم"
+msgstr "قلم"
+
+msgid "ادامه خرید"
+msgstr "ادامه خرید"
+
+msgid "فروشگاه"
+msgstr "فروشگاه"
+
+msgid "فروشگاه طلا"
+msgstr "فروشگاه طلا"
+
+msgid "قیمت لحظه‌ای هر گرم طلا:"
+msgstr "قیمت لحظه‌ای هر گرم طلا:"
+
+msgid "تومان"
+msgstr "تومان"
+
+msgid "قیمت محصولات بر اساس آخرین به‌روزرسانی نرخ طلا + درصد سود فروشگاه محاسبه می‌شود."
+msgstr "قیمت محصولات بر اساس آخرین به‌روزرسانی نرخ طلا + درصد سود فروشگاه محاسبه می‌شود."
+
+msgid "فیلتر قیمت"
+msgstr "فیلتر قیمت"
+
+msgid "حداقل قیمت (تومان)"
+msgstr "حداقل قیمت (تومان)"
+
+msgid "از"
+msgstr "از"
+
+msgid "حداکثر قیمت (تومان)"
+msgstr "حداکثر قیمت (تومان)"
+
+msgid "تا"
+msgstr "تا"
+
+msgid "اعمال فیلتر"
+msgstr "اعمال فیلتر"
+
+msgid "حذف فیلتر"
+msgstr "حذف فیلتر"
+
+msgid "کالایی با این مشخصات یافت نشد."
+msgstr "کالایی با این مشخصات یافت نشد."
+
+msgid "نمایش همه کالاها"
+msgstr "نمایش همه کالاها"
+
+msgid "جزئیات"
+msgstr "جزئیات"
+
+msgid "افزودن به سبد"
+msgstr "افزودن به سبد"
+
+msgid "ورود برای خرید"
+msgstr "ورود برای خرید"

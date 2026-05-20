@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load humanize persian_digits %}
+
+{% block title %}{{ item.name }}{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="{% trans "مسیر" %}">
+    <a href="{% url 'store:home' %}">{% trans "خانه" %}</a>
+    /
+    <a href="{% url 'store:golditem_list' %}">{% trans "فروشگاه" %}</a>
+    /
+    <span>{{ item.name }}</span>
+</nav>
+
+<div class="product-detail">
+    <div class="product-detail-image">
+        {% if item.image %}
+        <img src="{{ item.image.url }}" alt="{{ item.name }}">
+        {% else %}
+        <div class="product-card-placeholder" style="height:100%;font-size:4rem;">◆</div>
+        {% endif %}
+    </div>
+
+    <div>
+        <h1>{{ item.name }}</h1>
+        <p class="text-muted">{{ item.get_category_display }}</p>
+
+        <p class="price-large">
+            {% if item.live_price %}
+            {{ item.live_price|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}
+            {% else %}
+            {{ item.final_price|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}
+            {% endif %}
+        </p>
+
+        <ul class="spec-list">
+            <li><span>{% trans "وزن" %}</span><strong>{{ item.weight_gram|to_persian_digits }} {% trans "گرم" %}</strong></li>
+            <li><span>{% trans "موجودی" %}</span><strong>{% if item.stock > 0 %}{{ item.stock|to_persian_digits }} {% trans "عدد" %}{% else %}{% trans "ناموجود" %}{% endif %}</strong></li>
+            <li><span>{% trans "درصد سود" %}</span><strong>{{ item.profit_percent|to_persian_digits }}٪</strong></li>
+        </ul>
+
+        <div class="info-box">
+            <strong>{% trans "نحوه محاسبه قیمت:" %}</strong>
+            {% trans "قیمت = (وزن × نرخ لحظه‌ای هر گرم طلا) × (۱ +" %} {{ item.profit_percent|to_persian_digits }}{% trans "% سود)" %}
+            {% if latest_gold_price %}
+            <br>
+            <span class="text-muted">{% trans "نرخ فعلی هر گرم:" %} {{ latest_gold_price.price_per_gram|floatformat:0|intcomma|to_persian_digits }} {% trans "تومان" %}</span>
+            {% endif %}
+        </div>
+
+        {% if user.is_authenticated %}
+            {% if item.stock > 0 %}
+            <form action="{% url 'store:cart_add' item.pk %}" method="post" class="qty-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="quantity">{% trans "تعداد" %}</label>
+                    <input type="number" name="quantity" id="quantity" value="1" min="1" max="{{ item.stock }}" class="form-input">
+                </div>
+                <button type="submit" class="btn btn-primary">{% trans "افزودن به سبد خرید" %}</button>
+            </form>
+            {% else %}
+            <p class="alert alert-warning">{% trans "این محصول در حال حاضر موجود نیست." %}</p>
+            {% endif %}
+        {% else %}
+        <p class="panel">
+            {% trans "برای افزودن به سبد خرید وارد حساب شوید." %}
+            <a href="{% url 'login' %}?next={% url 'store:golditem_detail' item.pk %}" class="btn btn-primary btn-sm mt-1">{% trans "ورود" %}</a>
+            <a href="{% url 'signup' %}?next={% url 'store:golditem_detail' item.pk %}" class="btn btn-secondary btn-sm mt-1">{% trans "ثبت‌نام" %}</a>
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
