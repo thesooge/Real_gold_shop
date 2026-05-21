@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import GoldItem, Order, CartItem, GoldPrice, Coupon, ShippingSettings
+from .models import GoldItem, Order, CartItem, GoldPrice, Coupon, ShippingSettings, Announcement
 # Register your models here.
 
 @admin.register(GoldItem)
@@ -21,3 +21,9 @@ class CouponAdmin(admin.ModelAdmin):
 @admin.register(ShippingSettings)
 class ShippingSettingsAdmin(admin.ModelAdmin):
     list_display = ("flat_rate", "free_from_amount")    
+
+@admin.register(Announcement)
+class AnnouncementAdmin(admin.ModelAdmin):
+    list_display = ("message", "is_active", "created_at")
+    list_filter = ("is_active",)
+    ordering = ("-created_at",)    

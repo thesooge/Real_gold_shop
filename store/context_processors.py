@@ -1,4 +1,4 @@
-from .models import CartItem
+from .models import CartItem, Announcement
 
 
 def cart(request):
@@ -11,3 +11,7 @@ def cart(request):
     else:
         total_qty = 0
     return {"cart_item_count": total_qty}
+
+def current_announcement(request):
+    ann = Announcement.objects.filter(is_active=True).order_by("-created_at").first()
+    return {"current_announcement": ann}

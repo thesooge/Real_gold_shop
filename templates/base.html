@@ -7,6 +7,7 @@
     <meta name="description" content="{% trans 'Online second-hand gold shop with transparent pricing' %}">
     <title>{% block title %}{% trans "Gold Shop" %}{% endblock %} | {% trans "Galerie Bahere Gold" %}</title>
     <link rel="icon" href="{% static 'img/logo3.PNG' %}" type="image/png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,6 +15,14 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body>
+    {% if current_announcement %}
+        <div class="site-announcement" dir="rtl">
+        <span class="site-announcement-text">
+            {{ current_announcement.message }}
+        </span>
+        <button class="site-announcement-close" aria-label="بستن اعلان">×</button>
+        </div>
+    {% endif %}
     <header class="site-header">
         <div class="container header-inner">
             <a href="{% url 'store:home' %}" class="brand">
@@ -93,7 +102,23 @@
             </div>
         </div>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const bar = document.querySelector(".site-announcement");
+            const closeBtn = document.querySelector(".site-announcement-close");
+            if (!bar || !closeBtn) return;
 
+            closeBtn.addEventListener("click", function () {
+            bar.style.display = "none";
+            // Optional: remember in localStorage so it stays hidden
+            localStorage.setItem("announcement_closed", "1");
+            });
+
+            if (localStorage.getItem("announcement_closed") === "1") {
+            bar.style.display = "none";
+            }
+        });
+    </script>
     <script src="{% static 'js/main.js' %}" defer></script>
     {% block extra_js %}{% endblock %}
 </body>
