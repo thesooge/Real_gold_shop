@@ -2,7 +2,9 @@
 {% load i18n %}
 {% load humanize persian_digits %}
 
+
 {% block title %}{{ item.name }}{% endblock %}
+
 
 {% block content %}
 <nav class="breadcrumb" aria-label="{% trans "مسیر" %}">
@@ -51,14 +53,20 @@
 
         {% if user.is_authenticated %}
             {% if item.stock > 0 %}
-            <form action="{% url 'store:cart_add' item.pk %}" method="post" class="qty-form">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="quantity">{% trans "تعداد" %}</label>
-                    <input type="number" name="quantity" id="quantity" value="1" min="1" max="{{ item.stock }}" class="form-input">
-                </div>
-                <button type="submit" class="btn btn-primary">{% trans "افزودن به سبد خرید" %}</button>
-            </form>
+                {% if item.is_sellable %}
+                <form action="{% url 'store:cart_add' item.pk %}" method="post" class="qty-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="quantity">{% trans "تعداد" %}</label>
+                        <input type="number" name="quantity" id="quantity" value="1" min="1" max="{{ item.stock }}" class="form-input">
+                    </div>
+                    <button type="submit" class="btn btn-primary">{% trans "افزودن به سبد خرید" %}</button>
+                </form>
+                {% else %}
+                <p class="alert alert-info">
+                    {% trans "در حال حاضر امکان ثبت سفارش آنلاین برای این محصول غیرفعال است. برای خرید با ما تماس بگیرید." %}
+                </p>
+                {% endif %}
             {% else %}
             <p class="alert alert-warning">{% trans "این محصول در حال حاضر موجود نیست." %}</p>
             {% endif %}

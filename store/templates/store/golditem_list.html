@@ -17,6 +17,20 @@
 </div>
 {% endif %}
 
+<div class="filter-bar" aria-label="{% trans "فیلتر دسته‌بندی" %}" dir="rtl">
+    <a href="{% url 'store:golditem_list' %}{% if min_price or max_price %}?min_price={{ min_price }}&max_price={{ max_price }}{% endif %}"
+       class="filter-pill {% if not current_category %}is-active{% endif %}">
+        {% trans "همه دسته‌ها" %}
+    </a>
+
+    {% for value, label in categories %}
+        <a href="{% url 'store:golditem_list' %}?category={{ value }}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}"
+           class="filter-pill {% if current_category == value %}is-active{% endif %}">
+            {{ label }}
+        </a>
+    {% endfor %}
+</div>
+
 <form method="get" class="filter-bar" aria-label="{% trans "فیلتر قیمت" %}">
     <div class="filter-group">
         <label for="min_price">{% trans "حداقل قیمت (تومان)" %}</label>

@@ -42,6 +42,10 @@ class GoldItemListView(ListView):
 
         min_price = self.request.GET.get("min_price")
         max_price = self.request.GET.get("max_price")
+        category = self.request.GET.get("category")
+        
+        if category:
+            qs = qs.filter(category=category)
 
         if min_price:
             qs = qs.filter(final_price__gte=min_price)
@@ -54,6 +58,8 @@ class GoldItemListView(ListView):
         context = super().get_context_data(**kwargs)
         context["min_price"] = self.request.GET.get("min_price", "")
         context["max_price"] = self.request.GET.get("max_price", "")
+        context["current_category"] = self.request.GET.get("category", "")  # NEW
+        context["categories"] = GoldItem.Category.choices                   # NEW
         context["latest_gold_price"] = GoldPrice.objects.first()
         return context
 

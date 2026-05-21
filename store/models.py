@@ -24,6 +24,7 @@ class GoldItem(models.Model):
     final_price = models.PositiveIntegerField()
     stock = models.PositiveIntegerField()
     image = models.ImageField(upload_to="gold_items/", null=True, blank=True)
+    is_sellable = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
