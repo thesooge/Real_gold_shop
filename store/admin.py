@@ -5,7 +5,7 @@ from .models import GoldItem, Order, CartItem, GoldPrice, Coupon, ShippingSettin
 
 @admin.register(GoldItem)
 class GoldItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'weight_gram', 'base_rate_per_gram','profit_percent' , 'stock', 'created_at')
+    list_display = ('name', 'category', 'weight_gram','profit_percent' , 'stock', 'created_at')
 
 admin.site.register(Order)
 admin.site.register(CartItem)

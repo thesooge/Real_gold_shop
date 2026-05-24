@@ -36,8 +36,10 @@ class GoldItem(models.Model):
             multiplier = Decimal("1") + (Decimal(self.profit_percent) / Decimal("100"))
             self.final_price = int(base_amount * multiplier)
 
+        self.final_price = self.live_price
+               
         if not self.slug:
-            base_slug = slugify(self.name)
+            base_slug = slugify(self.name, allow_unicode=True)
             slug = base_slug
             counter = 1
             while GoldItem.objects.filter(slug=slug).exclude(pk=self.pk).exists():

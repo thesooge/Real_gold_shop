@@ -1,6 +1,6 @@
 {% load humanize persian_digits i18n%}
 <article class="product-card">
-    <a href="{% url 'store:golditem_detail' item.pk %}" class="product-card-image">
+    <a href="{% url 'store:golditem_detail' item.slug %}" class="product-card-image">
         {% if item.image %}
         <img src="{{ item.image.url }}" alt="{{ item.name }}" loading="lazy" width="320" height="240">
         {% else %}
@@ -9,7 +9,7 @@
     </a>
     <div class="product-card-body">
         <h3 class="product-card-title">
-            <a href="{% url 'store:golditem_detail' item.pk %}">{{ item.name }}</a>
+            <a href="{% url 'store:golditem_detail' item.slug %}">{{ item.name }}</a>
         </h3>
         <p class="product-card-meta">
             {{ item.get_category_display }} · {{ item.weight_gram|to_persian_digits }} {% trans "گرم" %}
@@ -22,7 +22,7 @@
             {% endif %}
         </p>
         <div class="product-card-actions">
-            <a href="{% url 'store:golditem_detail' item.pk %}" class="btn btn-secondary btn-sm">{% trans "جزئیات" %}</a>
+            <a href="{% url 'store:golditem_detail' item.slug %}" class="btn btn-secondary btn-sm">{% trans "جزئیات" %}</a>
         </div>
     </div>
 </article>
