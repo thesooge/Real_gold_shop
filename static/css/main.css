@@ -65,10 +65,18 @@ html {
   margin-right: 8px;
 }
 
-html, body {
-  font-family: "Vazirmatn", system-ui, -apple-system, BlinkMacSystemFont,
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/static/fonts/vazirmatn/Vazirmatn-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --font-sans: "Vazirmatn", system-ui, -apple-system, BlinkMacSystemFont,
                "Segoe UI", sans-serif;
 }
+
 body {
   margin: 0;
   font-family: var(--font-sans);
@@ -153,6 +161,85 @@ p { margin: 0 0 1rem; }
     object-fit: contain;
     object-position: center;
     mix-blend-mode: multiply;
+}
+
+.promo-card {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+  background: #f7f7f7;
+  border-radius: 24px;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.promo-card-image img {
+  display: block;
+  max-width: 260px;
+  border-radius: 16px;
+}
+
+.promo-card-content {
+  flex: 1;
+}
+
+.promo-card h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+}
+
+.promo-card-lead {
+  margin-bottom: 0.75rem;
+  color: #555;
+}
+
+.promo-card-points {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  color: #444;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+
+.promo-card-points li {
+  white-space: nowrap;
+}
+
+.promo-card-cta {
+  font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .promo-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .promo-card-image img {
+    max-width: 220px;
+  }
+
+  .promo-card-points {
+    justify-content: center;
+  }
+}
+
+.promo-detail-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  margin: 1rem auto;
+}
+
+.promo-card-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 768px) {

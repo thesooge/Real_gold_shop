@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "جزئیات امنیتی سکه پارسیان" %}{% endblock %}
+
+{% block content %}
+<div class="section-header">
+  <h1>{% trans "جزئیات امنیتی سکه پارسیان" %}</h1>
+</div>
+
+<div class="panel" dir="rtl">
+  <p>
+    {% trans "این سکه دارای چندین مؤلفه امنیتی برای جلوگیری از جعل و تقلب است. در تصویر زیر تمام این مؤلفه‌ها نمایش داده شده‌اند." %}
+  </p>
+
+  <div class="promo-detail-image">
+    <img src="{% static 'img/parsian_security.jpg' %}"
+         alt="{% trans 'معرفی مؤلفه‌های امنیتی پلاک پارسیان' %}">
+  </div>
+
+  <p class="text-muted">
+    {% trans "برای مشاهده جزئیات بیشتر روی تصویر زوم کنید یا در دستگاهی با صفحه‌نمایش بزرگ‌تر مشاهده نمایید." %}
+  </p>
+</div>
+{% endblock %}

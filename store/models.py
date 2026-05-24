@@ -4,6 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -23,6 +24,7 @@ class GoldItem(models.Model):
     profit_percent = models.PositiveIntegerField()
     final_price = models.PositiveIntegerField()
     stock = models.PositiveIntegerField()
+    slug = models.SlugField(max_length=220, unique=True, blank=True)
     image = models.ImageField(upload_to="gold_items/", null=True, blank=True)
     is_sellable = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -33,6 +35,16 @@ class GoldItem(models.Model):
             base_amount = Decimal(self.base_rate_per_gram) * self.weight_gram
             multiplier = Decimal("1") + (Decimal(self.profit_percent) / Decimal("100"))
             self.final_price = int(base_amount * multiplier)
+
+        if not self.slug:
+            base_slug = slugify(self.name)
+            slug = base_slug
+            counter = 1
+            while GoldItem.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                counter += 1
+                slug = f"{base_slug}-{counter}"
+            self.slug = slug  # ensure uniqueness [web:595][web:601]
+
         super().save(*args, **kwargs)
 
     @property

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load humanize persian_digits %}
+{% load static %}
 
 {% block title %}{% trans "خانه" %}{% endblock %}
 
@@ -17,6 +18,35 @@
             <a href="{% url 'store:cart_detail' %}" class="btn btn-secondary">{% trans "شروع خرید" %}</a>
         </div>
     </div>
+</section>
+
+<section class="promo-card" dir="rtl">
+  <div class="promo-card-image">
+    <img src="{% static 'img/parsi_coin.jpg' %}" alt="{% trans 'سکه پارسیان ضد جعل' %}">
+  </div>
+
+  <div class="promo-card-content">
+    <h2>{% trans "سکه پارسیان ضد جعل" %}</h2>
+    <p class="promo-card-lead">
+      {% trans "سکه‌های پارسیان را بدون نگرانی از جعل و تقلب، با خیالی آسوده بخرید." %}
+    </p>
+
+    <ul class="promo-card-points">
+      <li>✅ {% trans "بیش از ۱۲ مؤلفه امنیتی" %}</li>
+      <li>✅ {% trans "ضد جعل" %}</li>
+      <li>✅ {% trans "ضمانت بازخرید" %}</li>
+    </ul>
+
+    <a href="{% url 'store:golditem_list' %}?category=COIN"
+       class="btn btn-primary promo-card-cta">
+      {% trans "اکنون خرید کنید" %}
+    </a>
+    
+    <a href="{% url 'store:parsian_coin_security' %}"
+        class="btn btn-secondary">
+        {% trans "جزئیات" %}
+    </a>
+  </div>
 </section>
 
 <section class="features">

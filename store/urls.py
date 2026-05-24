@@ -11,6 +11,7 @@ from .views import (
     CheckoutView,
     ZarinpalCallbackView,
     remove_from_cart,
+    parsian_coin_security,
 )
 
 
@@ -28,4 +29,5 @@ urlpatterns = [
     path("cart/", CartDetailView.as_view(), name="cart_detail"),
     path("cart/checkout/", CheckoutView.as_view(), name="checkout"),
     path("payment/zarinpal/callback/", ZarinpalCallbackView.as_view(), name="zarinpal_callback"),
+    path("parsian-coin-security/",parsian_coin_security,name="parsian_coin_security",),
 ]

@@ -26,7 +26,7 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["featured_items"] = GoldItem.objects.filter(stock__gt=0).order_by(
             "-created_at"
-        )[:6]
+        )[:8]
         context["latest_gold_price"] = GoldPrice.objects.first()
         return context
 
@@ -459,3 +459,6 @@ class ZarinpalCallbackView(LoginRequiredMixin, View):
             messages.error(request, "تأیید پرداخت ناموفق بود.")
 
         return redirect("store:my_orders")
+
+def parsian_coin_security(request):
+    return render(request, "store/parsian_coin_security.html")
