@@ -29,5 +29,5 @@ urlpatterns = [
     path("cart/checkout/", CheckoutView.as_view(), name="checkout"),
     path("payment/zarinpal/callback/", ZarinpalCallbackView.as_view(), name="zarinpal_callback"),
     path("parsian-coin-security/",parsian_coin_security,name="parsian_coin_security",),
-    path("<path:slug>/", GoldItemDetailView.as_view(), name="golditem_detail"),
+    path("item/<path:slug>/", GoldItemDetailView.as_view(), name="golditem_detail"),
 ]

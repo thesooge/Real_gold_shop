@@ -3,7 +3,10 @@
 {% load humanize persian_digits %}
 
 
-{% block title %}{{ item.name }}{% endblock %}
+{% block title %}{{ item.name }} | گالری طلای باهر{% endblock %}
+{% block meta_description %}
+خرید {{ item.name }} با وزن {{ item.weight_gram }} گرم و قیمت به‌روز بر اساس نرخ لحظه‌ای طلا.
+{% endblock %}
 
 
 {% block content %}
@@ -41,6 +44,19 @@
             <li><span>{% trans "موجودی" %}</span><strong>{% if item.stock > 0 %}{{ item.stock|to_persian_digits }} {% trans "عدد" %}{% else %}{% trans "ناموجود" %}{% endif %}</strong></li>
             <li><span>{% trans "درصد سود" %}</span><strong>{{ item.profit_percent|to_persian_digits }}٪</strong></li>
         </ul>
+        <div class="product-description" dir="rtl">
+            <h2>توضیحات محصول</h2>
+            <p>
+                {{ item.name }} یک نمونه از <strong>{{ item.get_category_display }}</strong> است
+                که با وزن  <strong>{{ item.weight_gram|to_persian_digits }} گرم</strong> در سایت ثبت شده است.
+                قیمت این محصول بر اساس <strong>نرخ لحظه‌ای هر گرم طلا</strong> و
+                درصد سود مشخص فروشگاه محاسبه می‌شود تا خریدی شفاف و قابل مقایسه داشته باشید.
+            </p>
+            <p>
+                قبل از قرار گرفتن در فروشگاه، این قطعه از نظر <strong>اصالت، سلامت و عیار</strong> بررسی شده
+                و پس از خرید،  برای شما ارسال می‌شود.
+            </p>
+        </div>
 
         <div class="info-box">
             <strong>{% trans "نحوه محاسبه قیمت:" %}</strong>
@@ -79,4 +95,19 @@
         {% endif %}
     </div>
 </div>
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "{{ item.name|escape }}",
+    "description": "{{ item.get_category_display|escape }}",
+    "sku": "{{ item.id }}",
+    "offers": {
+        "@type": "Offer",
+        "priceCurrency": "IRT",
+        "price": "{{ item.live_price|default:item.final_price }}",
+        "availability": "{% if item.stock > 0 %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
+    }
+    }
+    </script>
 {% endblock %}
